@@ -1,5 +1,7 @@
 package com.revature.models;
 
+import java.util.TreeMap;
+
 public class User {
 
 	// fields
@@ -16,6 +18,8 @@ public class User {
 	private String email;
 	
 	private UserRoles role;
+	
+	private TreeMap<Integer, Reimbursement> userReimbursements;
 	// Constructors
 	
 	public User() {

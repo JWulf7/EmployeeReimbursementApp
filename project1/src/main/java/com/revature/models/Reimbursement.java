@@ -1,13 +1,14 @@
 package com.revature.models;
 
 import java.sql.Blob;
+import java.util.Arrays;
 
 public class Reimbursement {
 
 	// fields
 	private int reimId;
 	
-	private int amount;
+	private double amount;
 	
 	private String timeSubmitted;
 	
@@ -15,16 +16,19 @@ public class Reimbursement {
 	
 	private String descript;
 	
-	private Blob receipt;
+	private byte[] receipt;
 	
-	private String author;
+	private int author;
 	
-	private String resolver;
+	private int resolver;
 	
 	private ReimStatus status;
 	
+	private int statusNum;
+	
 	private ReimTypes type;
 	
+	private int typeNum;
 	
 	
 	// constructors
@@ -33,8 +37,8 @@ public class Reimbursement {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Reimbursement(int reimId, int amount, String timeSubmitted, String timeResolved, String descript,
-			Blob receipt, String author, String resolver, ReimStatus status, ReimTypes type) {
+	public Reimbursement(int reimId, double amount, String timeSubmitted, String timeResolved, String descript,
+			byte[] receipt, int author, int resolver, int statusNum, int typeNum) {
 		super();
 		this.reimId = reimId;
 		this.amount = amount;
@@ -47,8 +51,25 @@ public class Reimbursement {
 		this.status = status;
 		this.type = type;
 	}
-
+	
 	// getters and setters
+	public int getStatusNum() {
+		return statusNum;
+	}
+
+	public void setStatusNum(int statusNum) {
+		this.statusNum = statusNum;
+	}
+
+	public int getTypeNum() {
+		return typeNum;
+	}
+
+	public void setTypeNum(int typeNum) {
+		this.typeNum = typeNum;
+	}
+
+	
 	public int getReimId() {
 		return reimId;
 	}
@@ -57,11 +78,11 @@ public class Reimbursement {
 		this.reimId = reimId;
 	}
 
-	public int getAmount() {
+	public double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(int amount) {
+	public void setAmount(double amount) {
 		this.amount = amount;
 	}
 
@@ -89,27 +110,27 @@ public class Reimbursement {
 		this.descript = descript;
 	}
 
-	public Blob getReceipt() {
+	public byte[] getReceipt() {
 		return receipt;
 	}
 
-	public void setReceipt(Blob receipt) {
+	public void setReceipt(byte[] receipt) {
 		this.receipt = receipt;
 	}
 
-	public String getAuthor() {
+	public int getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(String author) {
+	public void setAuthor(int author) {
 		this.author = author;
 	}
 
-	public String getResolver() {
+	public int getResolver() {
 		return resolver;
 	}
 
-	public void setResolver(String resolver) {
+	public void setResolver(int resolver) {
 		this.resolver = resolver;
 	}
 
@@ -128,20 +149,21 @@ public class Reimbursement {
 	public void setType(ReimTypes type) {
 		this.type = type;
 	}
-	
-	
+
 	
 	// otherStuff
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + amount;
-		result = prime * result + ((author == null) ? 0 : author.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(amount);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + author;
 		result = prime * result + ((descript == null) ? 0 : descript.hashCode());
-		result = prime * result + ((receipt == null) ? 0 : receipt.hashCode());
+		result = prime * result + Arrays.hashCode(receipt);
 		result = prime * result + reimId;
-		result = prime * result + ((resolver == null) ? 0 : resolver.hashCode());
+		result = prime * result + resolver;
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((timeResolved == null) ? 0 : timeResolved.hashCode());
 		result = prime * result + ((timeSubmitted == null) ? 0 : timeSubmitted.hashCode());
@@ -158,29 +180,20 @@ public class Reimbursement {
 		if (getClass() != obj.getClass())
 			return false;
 		Reimbursement other = (Reimbursement) obj;
-		if (amount != other.amount)
+		if (Double.doubleToLongBits(amount) != Double.doubleToLongBits(other.amount))
 			return false;
-		if (author == null) {
-			if (other.author != null)
-				return false;
-		} else if (!author.equals(other.author))
+		if (author != other.author)
 			return false;
 		if (descript == null) {
 			if (other.descript != null)
 				return false;
 		} else if (!descript.equals(other.descript))
 			return false;
-		if (receipt == null) {
-			if (other.receipt != null)
-				return false;
-		} else if (!receipt.equals(other.receipt))
+		if (!Arrays.equals(receipt, other.receipt))
 			return false;
 		if (reimId != other.reimId)
 			return false;
-		if (resolver == null) {
-			if (other.resolver != null)
-				return false;
-		} else if (!resolver.equals(other.resolver))
+		if (resolver != other.resolver)
 			return false;
 		if (status != other.status)
 			return false;
@@ -202,13 +215,13 @@ public class Reimbursement {
 	@Override
 	public String toString() {
 		return "Reimbursement [reimId=" + reimId + ", amount=" + amount + ", timeSubmitted=" + timeSubmitted
-				+ ", timeResolved=" + timeResolved + ", descript=" + descript + ", receipt=" + receipt + ", author="
-				+ author + ", resolver=" + resolver + ", status=" + status + ", type=" + type + "]";
+				+ ", timeResolved=" + timeResolved + ", descript=" + descript + ", receipt=" + Arrays.toString(receipt)
+				+ ", author=" + author + ", resolver=" + resolver + ", status=" + status + ", type=" + type + "]";
 	}
 	
 	
 	
 	
-	
-	
+
+
 }
