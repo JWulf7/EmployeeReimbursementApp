@@ -118,7 +118,10 @@ public class ReimbursementsDAOImpl implements ReimbursementsDAO {
 			stmt.setInt(8, reimbursement.getStatusNum());
 			stmt.setInt(9, reimbursement.getTypeNum());
 			stmt.setInt(10, reimbursement.getReimId());
-			return stmt.execute();
+			boolean check = stmt.execute();
+			if(check == false) {
+				return true;
+			}
 
 		} catch (SQLException e) {
 			logger.warn("Unable to update reimbursement information", e);
@@ -128,7 +131,32 @@ public class ReimbursementsDAOImpl implements ReimbursementsDAO {
 	}
 
 	public boolean createReimbursement(Reimbursement reimbursement) {
-		// TODO Auto-generated method stub
+
+
+		try (Connection conn = ConnectionUtil.getConnection()) {
+
+			String sql = "INSERT into project1.reimbursements (amount, timeSubmitted, timeResolved, discription, receipt, author, resolver, status, reimType) " +
+						"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setDouble(1, reimbursement.getAmount());
+			stmt.setString(2, reimbursement.getTimeSubmitted());
+			stmt.setString(3, reimbursement.getTimeResolved());
+			stmt.setString(4, reimbursement.getDescript());
+			stmt.setBytes(5, reimbursement.getReceipt());
+			stmt.setInt(6, reimbursement.getAuthor());
+			stmt.setInt(7, reimbursement.getResolver());
+			stmt.setInt(8, reimbursement.getStatusNum());
+			stmt.setInt(9, reimbursement.getTypeNum());
+			
+			boolean check = stmt.execute();
+			if(check == false) {
+				return true;
+			}
+
+		} catch (SQLException e) {
+			logger.warn("Unable to create reimbursement information", e);
+			e.printStackTrace();
+		}
 		return false;
 	}
 

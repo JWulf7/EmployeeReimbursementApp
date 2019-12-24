@@ -19,6 +19,8 @@ public class User {
 	
 	private UserRoles role;
 	
+	private int roleNum;
+	
 	private TreeMap<Integer, Reimbursement> userReimbursements;
 	// Constructors
 	
@@ -30,7 +32,7 @@ public class User {
 	
 
 	public User(int userId, String userName, String userPassword, String firstName, String lastName, String email,
-			UserRoles role) {
+			int roleNum) {
 		super();
 		this.userId = userId;
 		this.userName = userName;
@@ -38,7 +40,7 @@ public class User {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-		this.role = role;
+		this.roleNum = roleNum;
 	}
 
 
@@ -102,6 +104,30 @@ public class User {
 	
 	
 	
+	public int getRoleNum() {
+		return roleNum;
+	}
+
+
+
+	public void setRoleNum(int roleNum) {
+		this.roleNum = roleNum;
+	}
+
+
+
+	public TreeMap<Integer, Reimbursement> getUserReimbursements() {
+		return userReimbursements;
+	}
+
+
+
+	public void setUserReimbursements(TreeMap<Integer, Reimbursement> userReimbursements) {
+		this.userReimbursements = userReimbursements;
+	}
+
+
+
 	// otherStuff
 	@Override
 	public int hashCode() {
